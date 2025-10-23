@@ -1,0 +1,8 @@
+=================================================================================================================================================================================================
+== Test 16: Redirect Input and Output with Arguments
+== Run 'wc' with several command line arguments, redirecting both input and
+== output.
+Running test...
+Expected output is in file 'test_results/raw/swish_shell_tests-16-expected.tmp'
+Actual output is in file 'test_results/raw/swish_shell_tests-16-actual.tmp'
+Test PASSED

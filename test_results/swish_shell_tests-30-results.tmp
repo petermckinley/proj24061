@@ -1,0 +1,7 @@
+=================================================================================================================================================================================================
+== Test 30: Wait for All Background Programs
+== Use the 'wait-all' command to wait for all background programs to terminate.
+Running test...
+Expected output is in file 'test_results/raw/swish_shell_tests-30-expected.tmp'
+Actual output is in file 'test_results/raw/swish_shell_tests-30-actual.tmp'
+Test PASSED

@@ -1,0 +1,8 @@
+=================================================================================================================================================================================================
+== Test 22: Resume multiple stopped jobs in foreground
+== Run several interactive jobs, suspend them, then resume in the foreground and
+== complete them. Check output of jobs to verify.
+Running test...
+Expected output is in file 'test_results/raw/swish_shell_tests-22-expected.tmp'
+Actual output is in file 'test_results/raw/swish_shell_tests-22-actual.tmp'
+Test PASSED
