@@ -1,7 +1,0 @@
-=================================================================================================================================================================================================
-== Test 29: Wait for a Background Program
-== Use the 'wait-for' command to wait until a program finishes.
-Running test...
-Expected output is in file 'test_results/raw/swish_shell_tests-29-expected.tmp'
-Actual output is in file 'test_results/raw/swish_shell_tests-29-actual.tmp'
-Test PASSED

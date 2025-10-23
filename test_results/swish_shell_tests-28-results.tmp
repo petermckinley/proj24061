@@ -1,8 +1,0 @@
-=================================================================================================================================================================================================
-== Test 28: Suspend Program and Resume in Background
-== Use the 'bg' command to resume a stopped program in the background. Then
-== verify that the program completes.
-Running test...
-Expected output is in file 'test_results/raw/swish_shell_tests-28-expected.tmp'
-Actual output is in file 'test_results/raw/swish_shell_tests-28-actual.tmp'
-Test PASSED

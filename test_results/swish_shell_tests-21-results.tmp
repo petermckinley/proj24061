@@ -1,8 +1,0 @@
-=================================================================================================================================================================================================
-== Test 21: Resume stopped job in foreground
-== Run an interactive job, suspend it, then resume it in foreground and complete
-== it. Check output of 'jobs' to verify.
-Running test...
-Expected output is in file 'test_results/raw/swish_shell_tests-21-expected.tmp'
-Actual output is in file 'test_results/raw/swish_shell_tests-21-actual.tmp'
-Test PASSED

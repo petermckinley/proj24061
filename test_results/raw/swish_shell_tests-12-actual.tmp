@@ -1,4 +1,0 @@
-@> wc -c -m -l -L -w test_cases/resources/gatsby.txt > out.txt
-@> cat out.txt
-  6772  51187 299452 299452     74 test_cases/resources/gatsby.txt
-@> exit

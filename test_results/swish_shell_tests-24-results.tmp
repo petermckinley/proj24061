@@ -1,7 +1,0 @@
-=================================================================================================================================================================================================
-== Test 24: Multiple Out of Bounds Resume Index
-== Tries to resume several non-existent jobs with the 'fg' command.
-Running test...
-Expected output is in file 'test_results/raw/swish_shell_tests-24-expected.tmp'
-Actual output is in file 'test_results/raw/swish_shell_tests-24-actual.tmp'
-Test PASSED

@@ -1,8 +1,0 @@
-=================================================================================================================================================================================================
-== Test 14: Attempt to Redirect Input from Non-Existent File
-== Attempt to run a command with input redirected from a non-existent file. The
-== shell should print out an appropriate error message.
-Running test...
-Expected output is in file 'test_results/raw/swish_shell_tests-14-expected.tmp'
-Actual output is in file 'test_results/raw/swish_shell_tests-14-actual.tmp'
-Test PASSED
