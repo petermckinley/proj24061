@@ -15,6 +15,7 @@
 #define PROMPT "@> "
 
 int main(int argc, char **argv) {
+  // ignore stop signals for terminal
   struct sigaction sac;
   sac.sa_handler = SIG_IGN;
   if (sigfillset(&sac.sa_mask) == -1) {
@@ -28,6 +29,7 @@ int main(int argc, char **argv) {
     return 1;
   }
 
+  // structures for storing, jobs lists and stuff
   strvec_t tokens;
   strvec_init(&tokens);
   job_list_t jobs;
@@ -43,6 +45,7 @@ int main(int argc, char **argv) {
     }
     cmd[i] = '\0';
 
+    // tokenize and storee input
     if (tokenize(cmd, &tokens) != 0) {
       printf("Failed to parse command\n");
       strvec_clear(&tokens);
@@ -55,6 +58,7 @@ int main(int argc, char **argv) {
     }
     const char *first_token = strvec_get(&tokens, 0);
 
+    // pwd command handling
     if (strcmp(first_token, "pwd") == 0) {
       char buf[BUFSIZ];
       if (getcwd(buf, BUFSIZ) == NULL) {
@@ -65,6 +69,7 @@ int main(int argc, char **argv) {
       printf("%s\n", buf);
     }
 
+    // cd command handling
     else if (strcmp(first_token, "cd") == 0) {
       char *second_token = strvec_get(&tokens, 1);
       if (second_token == NULL) {
@@ -74,11 +79,13 @@ int main(int argc, char **argv) {
       }
     }
 
+    // end of shell
     else if (strcmp(first_token, "exit") == 0) {
       strvec_clear(&tokens);
       break;
     }
 
+    // lists current jobs
     else if (strcmp(first_token, "jobs") == 0) {
       int i = 0;
       job_t *current = jobs.head;
@@ -95,31 +102,35 @@ int main(int argc, char **argv) {
       }
     }
 
+    // resumes jjob to foreground
     else if (strcmp(first_token, "fg") == 0) {
-
       if (resume_job(&tokens, &jobs, 1) == 1) {
         printf("Failed to resume job in foreground\n");
       }
     }
 
+    // resumes job to backgground
     else if (strcmp(first_token, "bg") == 0) {
       if (resume_job(&tokens, &jobs, 0) == 1) {
         printf("Failed to resume job in background\n");
       }
     }
 
+    // waits for job
     else if (strcmp(first_token, "wait-for") == 0) {
       if (await_background_job(&tokens, &jobs) == -1) {
         printf("Failed to wait for background job\n");
       }
     }
 
+    // waits for all jobs
     else if (strcmp(first_token, "wait-all") == 0) {
       if (await_all_background_jobs(&jobs) == -1) {
         printf("Failed to wait for all background jobs\n");
       }
     }
 
+    // handles all other commands, splits up then execs
     else {
       char *cmd_name = strvec_get(&tokens, 0);
 
@@ -157,7 +168,7 @@ int main(int argc, char **argv) {
           job_list_add(&jobs, pid, cmd_name, BACKGROUND);
 
         } else {
-
+          // terminnal control to child
           if (tcsetpgrp(STDIN_FILENO, pid) == -1) {
             perror("tcsetpgrp (to child)");
           }

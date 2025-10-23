@@ -18,6 +18,9 @@
 
 #define MAX_ARGS 10
 
+/*
+ * splits input string by spaces, stores in array
+ */
 int tokenize(char *s, strvec_t *tokens) {
   char *buf = strtok(s, " ");
 
@@ -28,6 +31,9 @@ int tokenize(char *s, strvec_t *tokens) {
   return 0;
 }
 
+/*
+runs external, non supported commands, execvp
+*/
 int run_command(strvec_t *tokens) {
   int count = tokens->length;
   char *argv[count + 1];
@@ -42,13 +48,13 @@ int run_command(strvec_t *tokens) {
   int out_index = strvec_find(tokens, ">");
   int append_index = strvec_find(tokens, ">>");
 
+  // input redirctions stuff!
   if (in_index != -1) {
     char *infile = strvec_get(tokens, in_index + 1);
     if (infile == NULL) {
       fprintf(stderr, "Error: missing input file for '<'\n");
       return 1;
     }
-
     int fd = open(infile, O_RDONLY);
     if (fd < 0) {
       perror("Failed to open input file");
@@ -62,9 +68,11 @@ int run_command(strvec_t *tokens) {
     }
 
     close(fd);
+    // remove from argv
     argv[in_index] = NULL;
   }
 
+  // output redirection
   if (out_index != -1) {
     char *outfile = strvec_get(tokens, out_index + 1);
     if (outfile == NULL) {
@@ -88,6 +96,7 @@ int run_command(strvec_t *tokens) {
     argv[out_index] = NULL;
   }
 
+  // append redirection stuff
   if (append_index != -1) {
     char *outfile = strvec_get(tokens, append_index + 1);
     if (outfile == NULL) {
@@ -111,6 +120,7 @@ int run_command(strvec_t *tokens) {
     argv[append_index] = NULL;
   }
 
+  // restore defualt behavior for stdin stuff
   struct sigaction sac;
   sac.sa_handler = SIG_DFL;
 
@@ -131,6 +141,9 @@ int run_command(strvec_t *tokens) {
   return 1;
 }
 
+/*
+restarts ended job, give terminal control to it
+*/
 int resume_job(strvec_t *tokens, job_list_t *jobs, int is_foreground) {
   if (tokens->length < 2) {
     fprintf(stderr,
@@ -185,6 +198,7 @@ int resume_job(strvec_t *tokens, job_list_t *jobs, int is_foreground) {
   return 0;
 }
 
+// waits for background jobs to finish
 int await_background_job(strvec_t *tokens, job_list_t *jobs) {
   if (tokens->length < 2) {
     fprintf(stderr, "await: missing job index\n");
@@ -222,6 +236,7 @@ int await_background_job(strvec_t *tokens, job_list_t *jobs) {
   return 0;
 }
 
+// does it more!
 int await_all_background_jobs(job_list_t *jobs) {
   job_t *current = jobs->head;
   int job_index_counter = 0;
